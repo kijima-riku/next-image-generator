@@ -1,19 +1,38 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: Request) {
-  const { prompt } = await request.json();
-  const engineId = "stable-diffusion-v1-6";
-  const apiKey = process.env.NEXT_PUBLIC_STABILITY_API_KEY;
-  const apiHost = "https://api.stability.ai";
+const ENGINE_ID = "stable-diffusion-v1-6";
+const API_HOST = "https://api.stability.ai";
+
+interface RequestBody {
+  prompt: string;
+}
+
+export async function POST(request: NextRequest) {
+  const apiKey = process.env.STABILITY_API_KEY;
+
+  if (!apiKey) {
+    console.error("Stability AI API Key is not defined.");
+    return NextResponse.json(
+      { error: "Server configuration error" },
+      { status: 500 }
+    );
+  }
 
   try {
+    const { prompt } = (await request.json()) as RequestBody;
+
+    if (!prompt) {
+      console.error("Missing required argument 'prompt'");
+      return NextResponse.json({ error: "Argument error" }, { status: 400 });
+    }
+
     const response = await fetch(
-      `${apiHost}/v1/generation/${engineId}/text-to-image`,
+      `${API_HOST}/v1/generation/${ENGINE_ID}/text-to-image`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Accept: "application/json",
+          Accept: "image/png",
           Authorization: `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
@@ -32,13 +51,18 @@ export async function POST(request: Request) {
     );
 
     if (!response.ok) {
-      throw new Error(`Stability AI API error: ${await response.text()}`);
+      const error = response.toString();
+      throw new Error(`Stability AI API error: ${response.status}: ${error}`);
     }
 
-    const responseJSON = await response.json();
-    const base64Image = responseJSON.artifacts[0].base64;
+    const imageBuffer = await response.arrayBuffer();
 
-    return NextResponse.json({ image: base64Image });
+    return new NextResponse(Buffer.from(imageBuffer), {
+      status: 200,
+      headers: {
+        "Content-Type": "image/png",
+      },
+    });
   } catch (error) {
     console.error("Error generating image:", error);
     return NextResponse.json(
