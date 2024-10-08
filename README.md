@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Image Generator
 
-## Getting Started
+[English version here](README_EN.md)
 
-First, run the development server:
+Image Generator は、テキストプロンプトから画像を生成し、ギャラリーに保存できる Web アプリケーションです。
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## デモ
+https://github.com/user-attachments/assets/1432bfc5-aae2-4697-9555-7e611ed02854
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 技術スタック
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- [Next.js](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Supabase](https://supabase.io/)
+- [Stability AI API](https://stability.ai/)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+## 使用方法
 
-To learn more about Next.js, take a look at the following resources:
+1. テキストボックスに画像の説明を入力します。
+2. "Generate" ボタンをクリックして画像を生成します。
+3. 生成された画像が表示されたら、"Save to Gallery" ボタンをクリックしてギャラリーに保存できます。
+4. ギャラリーセクションで保存された画像を閲覧できます。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 注意事項
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+このアプリケーションは現在デプロイされていません。Stability AI API のクレジット使用を管理するため、ローカル環境でのみ実行可能です。
 
-## Deploy on Vercel
+## 追加情報
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- このアプリケーションは、最新の AI 画像生成技術を使用しています。生成される画像の品質と多様性は驚くべきものです！
+- ギャラリー機能により、生成した画像を簡単に保存し、後で参照することができます。
+- レスポンシブデザインにより、デスクトップとモバイルの両方で快適に使用できます。
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 将来の展望
+
+- ユーザー認証の導入
+- 画像ダウンロード機能
+- ソーシャルシェア機能の実装
+
+ご質問や提案がございましたら、お気軽にイシューを作成してください。このプロジェクトへの貢献を歓迎します！
